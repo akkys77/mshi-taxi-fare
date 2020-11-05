@@ -150,7 +150,7 @@ def result():
     taxi_ride.distance = req['distance']
     taxi_ride.duration = req['duration']
     taxi_ride.start_time = req['startTime']
-    return jsonify({'taxiFare': taxi_ride.compute_ride_charge()}), 200, {'ContentType': 'application/json'}
+    return jsonify({'data': taxi_ride.compute_ride_charge()}), 200, {'ContentType': 'application/json'}
 
 @app.route('/', methods=['GET'])
 def return_all_taxi_rides():
