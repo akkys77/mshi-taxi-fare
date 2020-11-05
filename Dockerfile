@@ -2,9 +2,9 @@ FROM python:3-alpine3.9
 
 WORKDIR /usr/src/app
 
-# COPY requirements.txt ./
-# RUN pip install --no-cache-dir -r requirements.txt
+COPY requirements.txt ./
+RUN pip install --no-cache-dir -r requirements.txt
 
-# COPY . .
+COPY . .
 
-# CMD [ "python", "./your-daemon-or-script.py" ]
+CMD [ "python", "./taxi_fare.py" ]
