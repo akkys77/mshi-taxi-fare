@@ -71,7 +71,7 @@ class TaxiRide:
 
 class TestTaxiRide():
     def setup(self):
-        self.taxi_ride = TaxiRide(1,10, "2020-06-19T14:01:17.031Z")
+        self.taxi_ride = TaxiRide(1,10, "2020-06-19T14:01:17.031Z",1000)
 
     def test_add_initial_charge(self):
         assert self.taxi_ride.add_initial_charge() == 1
@@ -127,17 +127,17 @@ class TestTaxiRide():
     def test_compute_ride_charge(self):
         self.taxi_ride.duration = 10
         self.taxi_ride.start_time = "2020-06-19T14:01:17.031Z"
-        assert self.taxi_ride.compute_ride_charge() == 26
+        assert self.taxi_ride.compute_ride_charge()['taxiFare'] == 26
         self.taxi_ride.duration = 10
         self.taxi_ride.start_time = "2020-06-19T14:01:17.031Z"
         self.taxi_ride.initial_charge = 5
-        assert self.taxi_ride.compute_ride_charge() == 30
+        assert self.taxi_ride.compute_ride_charge()['taxiFare'] == 30
         self.taxi_ride.duration = 10
         self.taxi_ride.start_time = "2020-06-19T14:01:17.031Z"
         self.taxi_ride.initial_charge = 5
         self.taxi_ride.distance_charge = 1.2
         self.taxi_ride.distance_increment = 0.1
-        assert self.taxi_ride.compute_ride_charge() == 125
+        assert self.taxi_ride.compute_ride_charge()['taxiFare'] == 125
 
 
 app = Flask(__name__)
