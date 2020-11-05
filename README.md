@@ -77,7 +77,7 @@ Sample results
 curl --location --request GET '127.0.0.1:5000/2'
 ```
 
-Sa,ple results
+Sample results
 ```
 {"distance":0.2,"duration":7000,"id":2,"startTime":"2020-06-19T14:01:17.031Z","taxiFare":13.5}
 ```
