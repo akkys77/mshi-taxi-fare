@@ -81,3 +81,9 @@ Sample results
 ```
 {"distance":0.2,"duration":7000,"id":2,"startTime":"2020-06-19T14:01:17.031Z","taxiFare":13.5}
 ```
+
+### 6. Testing
+
+```
+pytest taxi_fare.py
+```
