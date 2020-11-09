@@ -1,6 +1,7 @@
 import pytest
 from dateutil.parser import isoparse
 from flask import Flask, request, jsonify
+from flask_cors import CORS
 import json
 
 INITIAL_CHARGE = 1
@@ -60,7 +61,7 @@ class TaxiRide:
         """Compute taxi ride fare, distance in miles, start_time as an ISO date. If value not specified uses INITIAL_CHARGE, DISTANCE_CHARGE and DISTANCE_INCREMENT constant"""
         self.increment_taxi_fare_id()
         taxi_fare = self.add_initial_charge() + self.add_distance_charge()
-        ride = {"id": self.taxi_fare_id, "distance": self.distance_increment,
+        ride = {"id": self.taxi_fare_id, "distance": self.distance,
                        "startTime": self.start_time, "duration": self.duration, "taxiFare":taxi_fare}
         self.taxi_fares.append(ride)
         return ride
@@ -141,7 +142,7 @@ class TestTaxiRide():
 
 
 app = Flask(__name__)
-
+CORS(app)
 
 taxi_ride = TaxiRide(0, 0, "2020-06-19T14:01:17.031Z", 0)
 @app.route('/', methods=['POST'])
@@ -151,7 +152,6 @@ def result():
     taxi_ride.duration = req['duration']
     taxi_ride.start_time = req['startTime']
     return jsonify({'data': taxi_ride.compute_ride_charge()}), 200, {'ContentType': 'application/json'}
-
 @app.route('/', methods=['GET'])
 def return_all_taxi_rides():
     return jsonify(taxi_ride.get_taxi_fares())
